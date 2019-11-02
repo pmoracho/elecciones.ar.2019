@@ -8,7 +8,7 @@
 
 # elecciones.ar.2019
 
-Paquete de datos con los resultados del escrutinio de las "Elecciones Nacionales 2019" de Argentina, tal cual como los publica la **[Dirección Nacional Electoral (DINE)](https://www.argentina.gob.ar/interior/dine)**.
+Paquete de datos con los resultados del escrutinio de las "Elecciones Nacionales 2019" de Argentina, tal cual como los publica la **[Dirección Nacional Electoral (DINE)](https://www.argentina.gob.ar/interior/dine)**. Este paquete se puede complementar con el de las [paso2019](https://github.com/pmoracho/paso2019), en un futuro, espero no muy lejano, la idea es incorporar los datos de las Paso 2019 en este mismo paquete para así poder hacer algún analisis de como se moviewron los votos de una a otra elección.
 
 ## Contenido
 
@@ -18,7 +18,7 @@ Los datos están actualizados al `28/10/2019 02:46 AM (-03:00 UTC)` según infor
 
 #### Modelo original
 
-El modelo original representa las tablas originales distribuidas por la justicia electoral, tal cual se pueden acceder desde: http://descargaresultados.s3-sa-east-1.amazonaws.com/resultados.zip. Los archivos (de tipo DSV), fueron importados sin ninguna transformación importante, son `data.frames` básicos, la mayoría de las columnas son `character`, salvo las que representan cantidades de votos que son numéricas.
+El modelo original representa las tablas originales distribuidas por la justicia electoral, tal cual se pueden acceder desde: https://resultados2019.gob.ar/resultados_detalle.zip. Los archivos (de tipo DSV), fueron importados sin ninguna transformación importante, son `data.frames` básicos, la mayoría de las columnas son `character`, salvo las que representan cantidades de votos que son numéricas.
 
 * descripcion_postulaciones (145.9 Kb)
 * descripcion_regiones (522 kb)

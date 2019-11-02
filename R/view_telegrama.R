@@ -18,9 +18,9 @@ view_telegrama <- function(codigo_mesa,
   destfile <- tempfile(pattern = codigo_mesa,
                        fileext = ".png",
                        tmpdir = tempdir())
-  download.file(url = imgfile,
+  utils::download.file(url = imgfile,
                 destfile = destfile,
                 mode = "wb")
-  browseURL(destfile)
+  utils::browseURL(destfile)
   destfile
 }

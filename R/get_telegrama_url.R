@@ -7,7 +7,7 @@
 #' @export
 #' @examples
 #'
-#' library("paso2019")
+#' library("elecciones.ar.2019")
 #'
 #' get_telegrama_url("0100100001X")
 #'

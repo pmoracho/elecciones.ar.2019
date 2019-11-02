@@ -14,7 +14,7 @@
 #'   \item{NOMBRE_REGION}{Nombre de la región}
 #' }
 #'
-#' @source \url{http://descargaresultados.s3-sa-east-1.amazonaws.com/resultados.zip}
+#' @source \url{https://resultados2019.gob.ar/resultados_detalle.zip}
 "descripcion_regiones"
 
 #' Postulaciones (categorías y agrupaciones)
@@ -34,7 +34,7 @@
 #'   \item{CODIGO_LISTA}{Código de la lista}
 #'   \item{NOMBRE_LISTA}{Nombre de la lista}
 #' }
-#' @source \url{http://descargaresultados.s3-sa-east-1.amazonaws.com/resultados.zip}
+#' @source \url{https://resultados2019.gob.ar/resultados_detalle.zip}
 "descripcion_postulaciones"
 
 #' Mesas
@@ -55,7 +55,7 @@
 #'   \item{VALOR}{Desconocido}
 #' }
 #'
-#' @source \url{http://descargaresultados.s3-sa-east-1.amazonaws.com/resultados.zip}
+#' @source \url{https://resultados2019.gob.ar/resultados_detalle.zip}
 "mesas_totales"
 
 
@@ -78,8 +78,28 @@
 #'   \item{VOTOS_AGRUPACION}{Cantidad de votos por agrupación}
 #' }
 #'
-#' @source \url{http://descargaresultados.s3-sa-east-1.amazonaws.com/resultados.zip}
+#' @source \url{https://resultados2019.gob.ar/resultados_detalle.zip}
 "mesas_agrp_politicas"
+
+#' Bancas por agrupación
+#'
+#' Un dataset conteniendo el detalle de las bancas obtenidas por agrupación,
+#' y provincia derivado del archivo original medios_sim_leg_nac.dsv
+#'
+#' (ESTRUCTURA ORIGINAL)
+#'
+#' @format Un data frame con 3,665,201 filas y 7 variables:
+#' \describe{
+#'   \item{CODIGO_PROVINCIA}{Código de provincia}
+#'   \item{PORCENTAJE_CARGA}{porcentaje de carga}
+#'   \item{CODIGO_CATEGORIA}{Código de categoría de la elección}
+#'   \item{CODIGO_AGRUPACION}{Código de agrupación}
+#'   \item{BANCAS_AGRUPACION}{Bancas obtenidas}
+#'   \item{OBSERVACIONES}{Observaciones}
+#' }
+#'
+#' @source \url{https://resultados2019.gob.ar/resultados_detalle.zip}
+"medios_sim_leg_nac"
 
 #' meta_agrupaciones
 #'
@@ -225,3 +245,21 @@
 #' }
 #'
 "votos"
+
+#' establecimientos
+#'
+#' Datos de establecimientos o locales de votación procesados a partir del
+#' dataset scrap_establecimientos_mesas.
+#'
+#' @format Un data frame con 15,226 filas y 6 variables:
+#' \describe{
+#'   \item{id_establecimiento}{id del establecimiento}
+#'   \item{codigo_establecimiento}{El código del establecimiento}
+#'   \item{nombre_establecimiento}{Nombre del establecimiento}
+#'   \item{codigo_mesa}{código de la mesa tal como parece en los datos originales}
+#'   \item{id_circuito}{id del circuito}
+#'   \item{id_seccion}{id de la sección}
+#'   \item{id_distrito}{id del distrito}
+#' }
+#'
+"establecimientos"

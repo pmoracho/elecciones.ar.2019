@@ -20,7 +20,7 @@ Ver el telegrama de una determinada mesa
 }
 \examples{
 
-library("paso2019")
+library("elecciones.ar.2019")
 
 view_telegrama("0100100002X")
 

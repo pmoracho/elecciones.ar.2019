@@ -15,7 +15,7 @@
   \item{VALOR}{Desconocido}
 }}
 \source{
-\url{http://descargaresultados.s3-sa-east-1.amazonaws.com/resultados.zip}
+\url{https://resultados2019.gob.ar/resultados_detalle.zip}
 }
 \usage{
 mesas_totales
