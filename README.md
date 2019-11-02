@@ -8,7 +8,7 @@
 
 # elecciones.ar.2019
 
-Paquete de datos con los resultados del escrutinio de las "Elecciones Nacionales 2019" de Argentina, tal cual como los publica la **[Dirección Nacional Electoral (DINE)](https://www.argentina.gob.ar/interior/dine)**. Este paquete se puede complementar con el de las [paso2019](https://github.com/pmoracho/paso2019), en un futuro, espero no muy lejano, la idea es incorporar los datos de las Paso 2019 en este mismo paquete para así poder hacer algún analisis de como se moviewron los votos de una a otra elección.
+Paquete de datos con los resultados del escrutinio de las "Elecciones Nacionales 2019" de Argentina, tal cual como los publica la **[Dirección Nacional Electoral (DINE)](https://www.argentina.gob.ar/interior/dine)**. Este paquete se puede complementar con el de las [paso2019](https://github.com/pmoracho/paso2019), **en un futuro, espero no muy lejano, la idea es incorporar los datos de las Paso 2019 en este mismo paquete para así poder hacer algún analisis de como se moviewron los votos de una a otra elección**.
 
 ## Contenido
 
