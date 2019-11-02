@@ -208,8 +208,8 @@ process_dsv_and_create_model <- function() {
     usethis::use_data(descripcion_postulaciones, overwrite = TRUE)
     usethis::use_data(descripcion_regiones, overwrite = TRUE)
     usethis::use_data(mesas_totales, overwrite = TRUE)
-    usethis::use_data(medios_sim_leg_nac, overwrite = TRUE)
     usethis::use_data(mesas_agrp_politicas, overwrite = TRUE)
+    usethis::use_data(medios_sim_leg_nac, overwrite = TRUE)
 
     # glimpse(meta_agrupaciones)
     # glimpse(agrupaciones)

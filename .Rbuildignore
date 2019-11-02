@@ -1,2 +1,6 @@
+^LICENSE\.md$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+ext-data
+doc
+^\.travis\.yml$
