@@ -195,6 +195,34 @@ process_dsv_and_create_model <- function() {
                codigo_mesa,
                escrutada) -> mesas
 
+    votos %>%
+        left_join(categorias, by = "id_categoria") %>%
+        left_join(listas, by = "id_lista") %>%
+        left_join(mesas, by = "id_mesa") %>%
+        nrow()
+        mesas %>%
+            group_by(codigo_mesa) %>%
+            summarise(cant = n()) %>%
+            filter(cant > 1)
+mesas %>%
+    filter(codigo_mesa == "0100100021X")
+
+
+        select(id_voto, codigo_mesa, codigo_lista, codigo_categoria, votos) -> v1
+
+    paso2019::votos %>%
+        left_join(paso2019::categorias, by = "id_categoria") %>%
+        left_join(paso2019::listas, by = "id_lista") %>%
+        left_join(paso2019::mesas, by = "id_mesa") %>%
+        select(id_voto, codigo_mesa, codigo_lista, codigo_categoria, votos) -> v2
+
+    v1 %>%
+        left_join(v2,  by = c("codigo_mesa", "codigo_lista", "codigo_categoria")) %>%
+        select(id_voto = id_voto.x, votos_paso = votos.y) -> v3
+    nrow(votos)
+    votos$votos_paso <- v3$votos_paso
+
+
     usethis::use_data(meta_agrupaciones, overwrite = TRUE)
     usethis::use_data(agrupaciones, overwrite = TRUE)
     usethis::use_data(categorias, overwrite = TRUE)
