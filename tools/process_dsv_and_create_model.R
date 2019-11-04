@@ -5,7 +5,6 @@
 process_dsv_and_create_model <- function() {
 
     require("tidyverse")
-    require("stringi")
     require("paso2019")
 
     read_dsv <- function(file, colClasses) {
@@ -18,45 +17,27 @@ process_dsv_and_create_model <- function() {
     mesas_agrp_politicas <- read_dsv("ext-data/mesas_agrp_politicas.dsv", c(rep("character",7), "numeric"))
     medios_sim_leg_nac <- read_dsv("ext-data/medios_sim_leg_nac.dsv", c("character", "numeric", "character", "character", "integer", "character"))
 
-    # Meta_Agrupaciones intentamos mantener los id
-    # que teníamos en las paso2019, tarea complicada por que
-    # han cambiado varios nombres
+    # Meta_Agrupaciones
     descripcion_postulaciones %>%
         distinct(NOMBRE_AGRUPACION) %>%
-        mutate(nombre_meta_agrupacion_tmp = stri_trans_general(NOMBRE_AGRUPACION,"Latin-ASCII")) %>%
-        left_join(paso2019::meta_agrupaciones,
-                  by = c("nombre_meta_agrupacion_tmp" = "nombre_meta_agrupacion")) %>%
-        select(id_meta_agrupacion, nombre_meta_agrupacion = NOMBRE_AGRUPACION) -> meta_agrupaciones
+        mutate(id = row_number()) %>%
+        select(id_meta_agrupacion = id,
+               nombre_meta_agrupacion = NOMBRE_AGRUPACION) -> meta_agrupaciones
 
-    # matching manual de algunos casos
-    meta_agrupaciones$id_meta_agrupacion[is.na(meta_agrupaciones$id_meta_agrupacion)] <- c(13, 47, 34, 14, 68, NA, NA, NA, NA, 78)
-
-    # agregamos isd nuevos a las agrupaciones nuevas
-    meta_agrupaciones %>%
-        arrange(id_meta_agrupacion) %>%
-        mutate(id_meta_agrupacion = ifelse(is.na(id_meta_agrupacion),
-                                           1000 + row_number(),
-                                           id_meta_agrupacion)) -> meta_agrupaciones
     # Agregamos los votos en blanco
-    meta_agrupacion_vb <- data_frame(id_meta_agrupacion=max(meta_agrupaciones$id_meta_agrupacion )+ 1,
+    meta_agrupacion_vb <- data_frame(id_meta_agrupacion=max(meta_agrupaciones$id_meta_agrupacion + 1),
                                      nombre_meta_agrupacion="VOTOS en BLANCO")
     meta_agrupaciones %>%
         bind_rows(meta_agrupacion_vb) -> meta_agrupaciones
 
-    paso2019::agrupaciones %>%
-        filter(id_meta_agrupacion %in% c(13, 47, 34, 14, 68, NA, NA, NA, NA, 78))
-
     # Agrupaciones
     descripcion_postulaciones %>%
         distinct(CODIGO_AGRUPACION, NOMBRE_AGRUPACION) %>%
-        left_join(paso2019::agrupaciones, by=c("CODIGO_AGRUPACION" = "codigo_agrupacion")) %>%
-        select(id_agrupacion,
+        left_join(meta_agrupaciones, by = c("NOMBRE_AGRUPACION" = "nombre_meta_agrupacion")) %>%
+        mutate(id = row_number()) %>%
+        select(id_agrupacion = id,
                id_meta_agrupacion,
                codigo_agrupacion = CODIGO_AGRUPACION) -> agrupaciones
-
-    agrupaciones[is.na(agrupaciones$id_agrupacion), ]
-
-
 
     # Agregamos los votos en blanco
     agrupaciones_vb <- data_frame(id_agrupacion = max(agrupaciones$id_agrupacion) + 1,
