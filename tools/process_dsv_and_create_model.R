@@ -115,7 +115,6 @@ process_dsv_and_create_model <- function() {
                id_circuito,
                codigo_mesa = CODIGO_MESA)  -> mesas
 
-
     # votos
     mesas_agrp_politicas %>%
         distinct(CODIGO_MESA, CODIGO_CATEGORIA, CODIGO_LISTA, VOTOS_AGRUPACION) %>%
@@ -143,7 +142,6 @@ process_dsv_and_create_model <- function() {
                id_lista,
                votos = VALOR) -> votos_vb
 
-
     votos %>%
         bind_rows(votos_vb) -> votos
 
@@ -162,30 +160,12 @@ process_dsv_and_create_model <- function() {
                codigo_mesa,
                escrutada) -> mesas
 
-    # Totales de votos por categoria
-    votos %>%
-        group_by(id_categoria) %>%
-        summarise(votos = sum(votos)) %>%
-        left_join(categorias, by = "id_categoria") %>%
-        select(id_categoria,
-               codigo_categoria,
-               nombre_categoria,
-               votos_totales = votos)  %>%
-        as.data.frame() -> categorias
-
-    # establecimientos
-    paso2019::scrap_establecimientos_mesas %>%
-        left_join(circuitos, by = "codigo_circuito") %>%
-        left_join(mesas, by = "codigo_mesa") %>%
-        distinct(codigo_establecimiento, nombre_establecimiento,
-                 id_circuito.x, id_seccion, id_distrito) %>%
-        mutate(id_establecimiento = row_number()) %>%
-        select(id_establecimiento, codigo_establecimiento, nombre_establecimiento,
-               id_circuito = id_circuito.x, id_seccion, id_distrito) -> establecimientos
-
     # rehacemos mesas para agregar el id del establecimiento
     mesas %>%
-        left_join(paso2019::scrap_establecimientos_mesas, by = "codigo_mesa") %>%
+        left_join(
+            paso2019::scrap_establecimientos_mesas %>%
+                distinct(codigo_establecimiento,codigo_circuito,nombre_establecimiento,codigo_mesa),
+                by = "codigo_mesa") %>%
         left_join(establecimientos, by = "codigo_establecimiento") %>%
         select(id_mesa,
                id_distrito = id_distrito.x,
@@ -195,33 +175,16 @@ process_dsv_and_create_model <- function() {
                codigo_mesa,
                escrutada) -> mesas
 
-    votos %>%
-        left_join(categorias, by = "id_categoria") %>%
-        left_join(listas, by = "id_lista") %>%
-        left_join(mesas, by = "id_mesa") %>%
-        nrow()
-        mesas %>%
-            group_by(codigo_mesa) %>%
-            summarise(cant = n()) %>%
-            filter(cant > 1)
-mesas %>%
-    filter(codigo_mesa == "0100100021X")
 
 
-        select(id_voto, codigo_mesa, codigo_lista, codigo_categoria, votos) -> v1
-
-    paso2019::votos %>%
-        left_join(paso2019::categorias, by = "id_categoria") %>%
-        left_join(paso2019::listas, by = "id_lista") %>%
-        left_join(paso2019::mesas, by = "id_mesa") %>%
-        select(id_voto, codigo_mesa, codigo_lista, codigo_categoria, votos) -> v2
-
-    v1 %>%
-        left_join(v2,  by = c("codigo_mesa", "codigo_lista", "codigo_categoria")) %>%
-        select(id_voto = id_voto.x, votos_paso = votos.y) -> v3
-    nrow(votos)
-    votos$votos_paso <- v3$votos_paso
-
+    # Totales de votos por categoria
+    categorias %>%
+        left_join(votos_totales, by = "id_categoria") %>%
+        select(id_categoria,
+               codigo_categoria,
+               nombre_categoria,
+               votos_totales = votos)  %>%
+        as.data.frame() -> categorias
 
     usethis::use_data(meta_agrupaciones, overwrite = TRUE)
     usethis::use_data(agrupaciones, overwrite = TRUE)
@@ -252,14 +215,3 @@ mesas %>%
     # glimpse(establecimientos)
 
 }
-
-library(tidyverse)
-glimpse(meta_agrupaciones)
-
-View(meta_agrupaciones)
-View(paso2019::meta_agrupaciones)
-
-meta_agrupaciones %>%
-    left_join(paso2019::meta_agrupaciones,
-              by = c("nombre_meta_agrupacion")
-    ) %>% View()

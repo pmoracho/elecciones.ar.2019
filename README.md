@@ -1,14 +1,11 @@
 <!-- badges: start -->
   [![Travis build status](https://travis-ci.org/pmoracho/paso2019.svg?branch=master)](https://travis-ci.org/pmoracho/elecciones.ar.2019)
-  [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/pmoracho/elecciones.ar.2019/blob/master/LICENSE)
-  [![GitHub commits](https://img.shields.io/github/commits-since/Naereen/StrapDown.js/v1.0.0.svg)](https://github.com/pmoracho/elecciones.ar.2019/commits)
-  [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/pmoracho/elecciones.ar.2019/graphs/commit-activity)
-  [![Github all releases](https://img.shields.io/github/downloads/Naereen/StrapDown.js/total.svg)](https://github.com/pmoracho/elecciones.ar.2019/releases)
-  <!-- badges: end -->
+<!-- badges: end -->
+
 
 # elecciones.ar.2019
 
-Paquete de datos con los resultados del escrutinio de las "Elecciones Nacionales 2019" de Argentina, tal cual como los publica la **[Dirección Nacional Electoral (DINE)](https://www.argentina.gob.ar/interior/dine)**. Este paquete se puede complementar con el de las [paso2019](https://github.com/pmoracho/paso2019), **en un futuro, espero no muy lejano, la idea es incorporar los datos de las Paso 2019 en este mismo paquete para así poder hacer algún analisis de como se moviewron los votos de una a otra elección**.
+Paquete de datos con los resultados del escrutinio de las "Elecciones Nacionales 2019" de Argentina, tal cual como los publica la **[Dirección Nacional Electoral (DINE)](https://www.argentina.gob.ar/interior/dine)**. Este paquete se puede complementar con el de las [paso2019](https://github.com/pmoracho/paso2019).
 
 ## Contenido
 
@@ -64,16 +61,16 @@ Este modelo elimina mucha de la redundancia de datos de los archivos originales,
       select(nombre_meta_agrupacion, votos, porcentaje ) %>% 
       arrange(-votos)
       
-     A tibble: 6 x 3
-    # Groups:   nombre_meta_agrupacion [6]
+    # A tibble: 7 x 3
       nombre_meta_agrupacion                            votos porcentaje
       <chr>                                             <dbl>      <dbl>
     1 FRENTE DE TODOS                                12473709     0.481 
     2 JUNTOS POR EL CAMBIO                           10470607     0.404 
     3 CONSENSO FEDERAL                                1599707     0.0617
-    4 FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD   561214     0.0216
-    5 FRENTE NOS                                       443507     0.0171
-    6 UNITE POR LA LIBERTAD Y LA DIGNIDAD              382820     0.0148
+    4 VOTOS en BLANCO                                  758988     0.0293
+    5 FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD   561214     0.0216
+    6 FRENTE NOS                                       443507     0.0171
+    7 UNITE POR LA LIBERTAD Y LA DIGNIDAD              382820     0.0148
 
 Los procesos de importación, tanto de los archivos, como los de la "captura" de los datos de la web, como así también la creación del nuevo modelo, puede consultarse y verificarse mirando los scripts (en el orden de ejecución):
 
