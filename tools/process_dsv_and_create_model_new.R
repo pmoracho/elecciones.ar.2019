@@ -55,7 +55,7 @@ mesas_agrp_politicas %>%
 # Secciones
 mesas_agrp_politicas %>%
     distinct(CODIGO_SECCION) %>%
-    full_join(paso2019::mesas_totales_agrp_politica %>%
+    full_join(paso2019::mesas_totales_lista %>%
                   distinct(CODIGO_SECCION),
               by = c("CODIGO_SECCION")) %>%
     left_join(descripcion_regiones, by = c('CODIGO_SECCION' = "CODIGO_REGION")) %>%
@@ -68,7 +68,7 @@ mesas_agrp_politicas %>%
 # Circuitos
 mesas_agrp_politicas %>%
     distinct(CODIGO_CIRCUITO) %>%
-    full_join(paso2019::mesas_totales_agrp_politica %>%
+    full_join(paso2019::mesas_totales_lista %>%
                   distinct(CODIGO_CIRCUITO),
               by = c("CODIGO_CIRCUITO")) %>%
     left_join(descripcion_regiones, by = c('CODIGO_CIRCUITO' = "CODIGO_REGION")) %>%
@@ -81,7 +81,7 @@ mesas_agrp_politicas %>%
 # Mesas
 mesas_agrp_politicas %>%
     distinct(CODIGO_MESA, CODIGO_DISTRITO, CODIGO_SECCION, CODIGO_CIRCUITO) %>%
-    full_join(paso2019::mesas_totales_agrp_politica %>%
+    full_join(paso2019::mesas_totales_lista %>%
                   distinct(CODIGO_MESA, CODIGO_DISTRITO, CODIGO_SECCION, CODIGO_CIRCUITO),
               by = c("CODIGO_MESA")) %>%
     mutate(id_mesa = row_number(),
@@ -99,3 +99,20 @@ mesas_agrp_politicas %>%
            id_circuito,
            codigo_mesa = CODIGO_MESA) %>%
     as.data.frame() -> mesas
+
+mesas_agrp_politicas %>%
+    distinct(CODIGO_MESA, CODIGO_CATEGORIA, CODIGO_LISTA, VOTOS_AGRUPACION) %>%
+    full_join(paso2019::mesas_totales_lista %>%
+                  distinct(CODIGO_MESA, CODIGO_CATEGORIA, CODIGO_LISTA, VOTOS_LISTA),
+              by = c("CODIGO_MESA", "CODIGO_CATEGORIA", "CODIGO_LISTA")) %>%
+    left_join(categorias, by=c("CODIGO_CATEGORIA" = "codigo_categoria")) %>%
+    left_join(listas, by=c("CODIGO_LISTA" = "codigo_lista")) %>%
+    left_join(mesas, by=c("CODIGO_MESA" = "codigo_mesa")) %>%
+    mutate(id_voto = row_number()) %>%
+    select(id_voto,
+           id_mesa,
+           id_categoria,
+           id_lista,
+           votos = VOTOS_AGRUPACION,
+           votos_paso = VOTOS_LISTA) -> votos
+
