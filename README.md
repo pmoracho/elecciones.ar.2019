@@ -44,11 +44,16 @@ Son tablas derivadas de las anteriores. La idea es transformar los datos en tabl
 
 Requerimiento de memoria total: **56.5 Mb**
 
-Este modelo elimina mucha de la redundancia de datos de los archivos originales, se generaron también `id's` numéricos para cada tabla, y así reducir los requerimientos de memoria. Claro, que las consultas requieren ir agregando varias relaciones. Por ejemplo, para consultar el total de votos de cada agrupación en la elección de presidente, habría que hacer algo así:
+Este modelo elimina mucha de la redundancia de datos de los archivos originales, se generaron también `id's` numéricos para cada tabla, y así reducir los requerimientos de memoria. Claro, que las consultas requieren ir agregando varias relaciones. Asimismo, **en este paquete integramos los resultados de las paso 2019**, la misma información que podemos encotrar en el paquete `pmoracho/paso2019`. 
+
+Por ejemplo, para consultar el total de votos de cada agrupación en la elección de presidente, habría que hacer algo así:
 
     library("tidyverse")
     library("elecciones.ar.2019")
-    
+
+    ############################################################################
+    # Resultados de la Eleccion     
+    ############################################################################
     votos %>% 
       left_join(listas, by = "id_lista") %>% 
       left_join(agrupaciones, by = "id_agrupacion") %>% 
@@ -71,6 +76,38 @@ Este modelo elimina mucha de la redundancia de datos de los archivos originales,
     5 FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD   561214     0.0216
     6 FRENTE NOS                                       443507     0.0171
     7 UNITE POR LA LIBERTAD Y LA DIGNIDAD              382820     0.0148
+
+    ############################################################################
+    # Resultados de las Paso
+    ############################################################################
+    votos %>% 
+        left_join(listas, by = "id_lista") %>% 
+        left_join(agrupaciones, by = "id_agrupacion") %>% 
+        left_join(categorias, by = "id_categoria") %>% 
+        left_join(meta_agrupaciones, by = "id_meta_agrupacion") %>% 
+        filter(nombre_categoria == "Presidente y Vicepresidente de la República") %>% 
+        group_by(nombre_meta_agrupacion, votos_totales_paso) %>% 
+        summarise(votos = sum(votos_paso)) %>% 
+        mutate(porcentaje = votos / votos_totales_paso) %>% 
+        select(nombre_meta_agrupacion, votos, porcentaje ) %>% 
+        arrange(-votos)
+    
+    
+    # A tibble: 11 x 3
+    # Groups:   nombre_meta_agrupacion [11]
+       nombre_meta_agrupacion                            votos porcentaje
+       <chr>                                             <dbl>      <dbl>
+     1 FRENTE DE TODOS                                11622428    0.484  
+     2 JUNTOS POR EL CAMBIO                            7825208    0.326  
+     3 CONSENSO FEDERAL                                2007035    0.0835 
+     4 FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD   697776    0.0290 
+     5 FRENTE NOS                                       642662    0.0267 
+     6 UNITE POR LA LIBERTAD Y LA DIGNIDAD              533100    0.0222 
+     7 VOTOS en BLANCO                                  399751    0.0166 
+     8 MOVIMIENTO AL SOCIALISMO                         173585    0.00722
+     9 FRENTE PATRIOTA                                   58575    0.00244
+    10 MOVIMIENTO DE ACCION VECINAL                      36324    0.00151
+    11 PARTIDO AUTONOMISTA                               32562    0.00136
 
 Los procesos de importación, tanto de los archivos, como los de la "captura" de los datos de la web, como así también la creación del nuevo modelo, puede consultarse y verificarse mirando los scripts (en el orden de ejecución):
 
