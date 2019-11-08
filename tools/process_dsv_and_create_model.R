@@ -185,7 +185,7 @@ process_dsv_and_create_model <- function() {
                        CODIGO_CATEGORIA,
                        CODIGO_LISTA,
                        VOTOS_AGRUPACION = VALOR.x,
-                       VOTOS_LISTA = VALOR.x)
+                       VOTOS_LISTA = VALOR.y)
         ) %>%
         left_join(categorias, by=c("CODIGO_CATEGORIA" = "codigo_categoria")) %>%
         left_join(listas, by=c("CODIGO_LISTA" = "codigo_lista")) %>%
@@ -207,7 +207,9 @@ process_dsv_and_create_model <- function() {
         left_join(votos %>%
                       group_by(id_mesa) %>%
                       summarise(votos = sum(votos),
-                                escrutada = votos > 0),
+                                votos_paso = sum(votos_paso),
+                                escrutada = votos > 0,
+                                escrutada_paso = votos_paso > 0),
                   by  = "id_mesa"
         ) %>%
         select(id_mesa,
@@ -215,7 +217,8 @@ process_dsv_and_create_model <- function() {
                id_seccion,
                id_circuito,
                codigo_mesa,
-               escrutada) -> mesas
+               escrutada) %>%
+        as.data.frame() -> mesas
 
     # rehacemos mesas para agregar el id del establecimiento
     mesas %>%
@@ -230,8 +233,8 @@ process_dsv_and_create_model <- function() {
                id_circuito = id_circuito.x,
                id_establecimiento,
                codigo_mesa,
-               escrutada) -> mesas
-
+               escrutada) %>%
+        as.data.frame() -> mesas
 
 
     # Totales de votos por categoria

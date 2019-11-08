@@ -17,13 +17,13 @@ Los datos están actualizados al `28/10/2019 02:46 AM (-03:00 UTC)` según infor
 
 El modelo original representa las tablas originales distribuidas por la justicia electoral, tal cual se pueden acceder desde: https://resultados2019.gob.ar/resultados_detalle.zip. Los archivos (de tipo DSV), fueron importados sin ninguna transformación importante, son `data.frames` básicos, la mayoría de las columnas son `character`, salvo las que representan cantidades de votos que son numéricas.
 
-* descripcion_postulaciones (145.9 Kb)
-* descripcion_regiones (522 kb)
-* mesas_totales (81.3 mb)
-* mesas_totales_agrp_politicas (64.9 mb)
-* medios_sim_leg_nac (6.3 Kb)
+* descripcion_postulaciones (210.1 Kb)
+* descripcion_regiones (836 kb)
+* mesas_totales (141.7 mb)
+* mesas_totales_agrp_politicas (114.7 mb)
+* medios_sim_leg_nac (10.6 Kb)
 
-Requerimiento de memoria total: **146.9 Mb**
+Requerimiento de memoria total: **257.4 Mb**
 
 #### Modelo nuevo
 
@@ -31,18 +31,18 @@ Requerimiento de memoria total: **146.9 Mb**
 
 Son tablas derivadas de las anteriores. La idea es transformar los datos en tablas que respeten mejor un modelo relacional. Estas tablas están en pleno procesos de creación y modificación, eventualmente podrá cambiar algo.
 
-* agrupaciones (7 kb)
-* categorias (38.7 kb)
-* circuitos (496.2 Kb)
-* distritos (2.6 kb)
-* listas (104.5 kb)
-* mesas (6.9 mb)
-* meta_agrupaciones (4.5 kb)
-* secciones (40.5 kb)
-* votos (47.3 MB)
-* establecimientos (1.7 Mb)
+* agrupaciones (14 kb)
+* categorias (52.1 kb)
+* circuitos (785.9 Kb)
+* distritos (4.3 kb)
+* listas (319.9 kb)
+* mesas (9.3 mb)
+* meta_agrupaciones (10.8 kb)
+* secciones (67.9 kb)
+* votos (131.7 MB)
+* establecimientos (2.3 Mb)
 
-Requerimiento de memoria total: **56.5 Mb**
+Requerimiento de memoria total: **114.5 Mb**
 
 Este modelo elimina mucha de la redundancia de datos de los archivos originales, se generaron también `id's` numéricos para cada tabla, y así reducir los requerimientos de memoria. Claro, que las consultas requieren ir agregando varias relaciones. Asimismo, **en este paquete integramos los resultados de las paso 2019**, la misma información que podemos encotrar en el paquete `pmoracho/paso2019`. 
 
@@ -55,28 +55,17 @@ Por ejemplo, para consultar el total de votos de cada agrupación en la elecció
     # Resultados de la Eleccion     
     ############################################################################
     votos %>% 
-      left_join(listas, by = "id_lista") %>% 
-      left_join(agrupaciones, by = "id_agrupacion") %>% 
-      left_join(categorias, by = "id_categoria") %>% 
-      left_join(meta_agrupaciones, by = "id_meta_agrupacion") %>% 
-      filter(nombre_categoria == "Presidente y Vicepresidente de la República") %>% 
-      group_by(nombre_meta_agrupacion, votos_totales) %>% 
-      summarise(votos = sum(votos)) %>% 
-      mutate(porcentaje = votos / votos_totales) %>% 
-      select(nombre_meta_agrupacion, votos, porcentaje ) %>% 
-      arrange(-votos)
+        left_join(listas, by = "id_lista") %>% 
+        left_join(agrupaciones, by = "id_agrupacion") %>% 
+        left_join(categorias, by = "id_categoria") %>% 
+        left_join(meta_agrupaciones, by = "id_meta_agrupacion") %>% 
+        filter(nombre_categoria == "Presidente y Vicepresidente de la República") %>% 
+        group_by(nombre_meta_agrupacion, votos_totales) %>% 
+        summarise(votos = sum(votos)) %>% 
+        mutate(porcentaje = votos / votos_totales) %>% 
+        select(nombre_meta_agrupacion, votos, porcentaje ) %>% 
+        arrange(-votos) -> elecciones
       
-    # A tibble: 7 x 3
-      nombre_meta_agrupacion                            votos porcentaje
-      <chr>                                             <dbl>      <dbl>
-    1 FRENTE DE TODOS                                12473709     0.481 
-    2 JUNTOS POR EL CAMBIO                           10470607     0.404 
-    3 CONSENSO FEDERAL                                1599707     0.0617
-    4 VOTOS en BLANCO                                  758988     0.0293
-    5 FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD   561214     0.0216
-    6 FRENTE NOS                                       443507     0.0171
-    7 UNITE POR LA LIBERTAD Y LA DIGNIDAD              382820     0.0148
-
     ############################################################################
     # Resultados de las Paso
     ############################################################################
@@ -90,25 +79,43 @@ Por ejemplo, para consultar el total de votos de cada agrupación en la elecció
         summarise(votos = sum(votos_paso)) %>% 
         mutate(porcentaje = votos / votos_totales_paso) %>% 
         select(nombre_meta_agrupacion, votos, porcentaje ) %>% 
-        arrange(-votos)
+        arrange(-votos) -> paso
     
     
-    # A tibble: 11 x 3
-    # Groups:   nombre_meta_agrupacion [11]
-       nombre_meta_agrupacion                            votos porcentaje
-       <chr>                                             <dbl>      <dbl>
-     1 FRENTE DE TODOS                                11622428    0.484  
-     2 JUNTOS POR EL CAMBIO                            7825208    0.326  
-     3 CONSENSO FEDERAL                                2007035    0.0835 
-     4 FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD   697776    0.0290 
-     5 FRENTE NOS                                       642662    0.0267 
-     6 UNITE POR LA LIBERTAD Y LA DIGNIDAD              533100    0.0222 
-     7 VOTOS en BLANCO                                  399751    0.0166 
-     8 MOVIMIENTO AL SOCIALISMO                         173585    0.00722
-     9 FRENTE PATRIOTA                                   58575    0.00244
-    10 MOVIMIENTO DE ACCION VECINAL                      36324    0.00151
-    11 PARTIDO AUTONOMISTA                               32562    0.00136
-
+    elecciones %>% 
+        full_join(paso, by = c("nombre_meta_agrupacion")) %>% 
+        mutate(votos_eleccion=votos.x,
+               porcentaje_eleccion = porcentaje.x,  
+               votos_paso = votos.y,
+               porcentaje_paso = porcentaje.y,
+               dif_votos = votos_eleccion - votos_paso,
+               dif_porcentaje = porcentaje_eleccion - porcentaje_paso,
+               variacion_votos = (votos_eleccion - votos_paso)/votos_paso) %>% 
+        select(agrupacion = nombre_meta_agrupacion,
+               votos_eleccion, 
+               porcentaje_eleccion,
+               votos_paso,
+               porcentaje_paso,
+               dif_votos,
+               dif_porcentaje,
+               variacion_votos
+               )
+    
+    # A tibble: 11 x 8
+    # Groups:   agrupacion [11]
+       agrupacion         votos_eleccion porcentaje_elec~ votos_paso porcentaje_paso dif_votos dif_porcentaje variacion_votos
+       <chr>                       <dbl>            <dbl>      <dbl>           <dbl>     <dbl>          <dbl>           <dbl>
+     1 FRENTE DE TODOS          12473709           0.481    11622428         0.477      851281        0.00447          0.0732
+     2 JUNTOS POR EL CAM~       10470607           0.404     7825208         0.321     2645399        0.0829           0.338 
+     3 CONSENSO FEDERAL          1599707           0.0617    2007035         0.0823    -407328       -0.0206          -0.203 
+     4 FRENTE DE IZQUIER~         561214           0.0216     697776         0.0286    -136562       -0.00697         -0.196 
+     5 FRENTE NOS                 443507           0.0171     642662         0.0264    -199155       -0.00925         -0.310 
+     6 VOTOS en BLANCO            399751           0.0154     758988         0.0311    -359237       -0.0157          -0.473 
+     7 UNITE POR LA LIBE~         382820           0.0148     533100         0.0219    -150280       -0.00710         -0.282 
+     8 FRENTE PATRIOTA                 0           0           58575         0.00240    -58575       -0.00240         -1     
+     9 MOVIMIENTO AL SOC~              0           0          173585         0.00712   -173585       -0.00712         -1     
+    10 MOVIMIENTO DE ACC~              0           0           36324         0.00149    -36324       -0.00149         -1     
+    11 PARTIDO AUTONOMIS~              0           0           32562         0.00134    -32562       -0.00134         -1     
 Los procesos de importación, tanto de los archivos, como los de la "captura" de los datos de la web, como así también la creación del nuevo modelo, puede consultarse y verificarse mirando los scripts (en el orden de ejecución):
 
 * `tools/download_and_process_establecimientos.R`: descarga y procesa todos los archivos `json` para generar la tabla de `scrap_establecimientos_mesas`, dónde tenemos código de mesa y nombre del establecimiento
