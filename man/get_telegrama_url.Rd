@@ -4,8 +4,10 @@
 \alias{get_telegrama_url}
 \title{Obtener la url de la imagen digitalizada del telegrama}
 \usage{
-get_telegrama_url(codigo_mesa,
-  base_url = "https://www.resultados2019.gob.ar/opt/jboss/rct/tally/pages")
+get_telegrama_url(
+  codigo_mesa,
+  base_url = "https://www.resultados2019.gob.ar/opt/jboss/rct/tally/pages"
+)
 }
 \arguments{
 \item{codigo_mesa}{El código de mesa}

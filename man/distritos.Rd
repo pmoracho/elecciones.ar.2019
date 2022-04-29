@@ -4,12 +4,14 @@
 \name{distritos}
 \alias{distritos}
 \title{Distritos electorales (Provincias)}
-\format{Un data frame con 24 filas y 3 variables:
+\format{
+Un data frame con 24 filas y 3 variables:
 \describe{
   \item{id_distrito}{un id numérico generado para el distrito}
   \item{codigo_distrito}{código de la provincia}
   \item{nombre_distrito}{Nombre de la provincia}
-}}
+}
+}
 \usage{
 distritos
 }

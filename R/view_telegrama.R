@@ -7,10 +7,11 @@
 #' @export
 #' @examples
 #'
+#'\dontrun{
 #' library("elecciones.ar.2019")
 #'
 #' view_telegrama("0100100002X")
-#'
+#'}
 view_telegrama <- function(codigo_mesa,
                            base_url = "https://www.resultados2019.gob.ar/opt/jboss/rct/tally/pages"
 ) {

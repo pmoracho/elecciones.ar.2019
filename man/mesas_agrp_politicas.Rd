@@ -4,7 +4,8 @@
 \name{mesas_agrp_politicas}
 \alias{mesas_agrp_politicas}
 \title{Votos por agrupación}
-\format{Un data frame con 3,665,201 filas y 7 variables:
+\format{
+Un data frame con 3,665,201 filas y 7 variables:
 \describe{
   \item{CODIGO_DISTRITO}{Código de distrito}
   \item{CODIGO_SECCION}{Código de sección electoral}
@@ -14,7 +15,8 @@
   \item{CODIGO_AGRUPACION}{Código de agrupación}
   \item{CODIGO_LISTA}{Código de lista}
   \item{VOTOS_AGRUPACION}{Cantidad de votos por agrupación}
-}}
+}
+}
 \source{
 \url{https://resultados2019.gob.ar/resultados_detalle.zip}
 }

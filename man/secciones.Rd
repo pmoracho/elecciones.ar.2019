@@ -4,12 +4,14 @@
 \name{secciones}
 \alias{secciones}
 \title{Secciones electorales (municipios)}
-\format{Un data frame con 527 filas y 3 variables:
+\format{
+Un data frame con 527 filas y 3 variables:
 \describe{
   \item{id_seccion}{un id numérico generado para la sección}
   \item{codigo_seccion}{código de la sección}
   \item{nombre_seccion}{Nombre de la sección}
-}}
+}
+}
 \usage{
 secciones
 }

@@ -4,7 +4,8 @@
 \name{establecimientos}
 \alias{establecimientos}
 \title{establecimientos}
-\format{Un data frame con 15,226 filas y 6 variables:
+\format{
+Un data frame con 15,226 filas y 6 variables:
 \describe{
   \item{id_establecimiento}{id del establecimiento}
   \item{codigo_establecimiento}{El código del establecimiento}
@@ -13,7 +14,8 @@
   \item{id_circuito}{id del circuito}
   \item{id_seccion}{id de la sección}
   \item{id_distrito}{id del distrito}
-}}
+}
+}
 \usage{
 establecimientos
 }

@@ -4,12 +4,14 @@
 \name{circuitos}
 \alias{circuitos}
 \title{Circuitos electorales}
-\format{Un data frame con 5,681 filas y 3 variables:
+\format{
+Un data frame con 5,681 filas y 3 variables:
 \describe{
   \item{id_circuito}{un id numérico generado para el circuito}
   \item{codigo_circuito}{código del circuito de la mesa}
   \item{nombre_circuito}{nombre del circuito}
-}}
+}
+}
 \usage{
 circuitos
 }

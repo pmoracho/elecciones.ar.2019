@@ -4,8 +4,10 @@
 \alias{view_telegrama}
 \title{Ver el telegrama de una determinada mesa}
 \usage{
-view_telegrama(codigo_mesa,
-  base_url = "https://www.resultados2019.gob.ar/opt/jboss/rct/tally/pages")
+view_telegrama(
+  codigo_mesa,
+  base_url = "https://www.resultados2019.gob.ar/opt/jboss/rct/tally/pages"
+)
 }
 \arguments{
 \item{codigo_mesa}{El código de mesa}
@@ -20,8 +22,9 @@ Ver el telegrama de una determinada mesa
 }
 \examples{
 
+\dontrun{
 library("elecciones.ar.2019")
 
 view_telegrama("0100100002X")
-
+}
 }

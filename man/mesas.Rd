@@ -4,7 +4,8 @@
 \name{mesas}
 \alias{mesas}
 \title{Mesas totales}
-\format{Un data frame con 115,930 filas y 7 variables:
+\format{
+Un data frame con 115,930 filas y 7 variables:
 \describe{
   \item{id_mesa}{id numérico generado}
   \item{id_distrito}{id del distrito de la mesa (provincia)}
@@ -12,7 +13,8 @@
   \item{id_circuito}{id del circuito}
   \item{codigo_mesa}{código de la mesa tal como parece en los datos originales}
   \item{escrutada}{la mesa fue escrutada}
-}}
+}
+}
 \usage{
 mesas
 }

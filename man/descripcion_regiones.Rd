@@ -4,11 +4,13 @@
 \name{descripcion_regiones}
 \alias{descripcion_regiones}
 \title{Regiones electorales Argentinas}
-\format{Un data frame con 6,327 filas y 2 variables:
+\format{
+Un data frame con 6,327 filas y 2 variables:
 \describe{
   \item{CODIGO_REGION}{Código de la región}
   \item{NOMBRE_REGION}{Nombre de la región}
-}}
+}
+}
 \source{
 \url{https://resultados2019.gob.ar/resultados_detalle.zip}
 }

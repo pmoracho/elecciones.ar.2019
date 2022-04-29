@@ -4,12 +4,14 @@
 \name{agrupaciones}
 \alias{agrupaciones}
 \title{Agrupaciones que participaron}
-\format{Un data frame con 127 filas y 3 variables:
+\format{
+Un data frame con 127 filas y 3 variables:
 \describe{
   \item{id_agrupacion}{id numérico generado}
   \item{id_meta_agrupacion}{id a la meta agrupación o partido}
   \item{codigo_agrupacion}{código de la agrupación tal como se informa}
-}}
+}
+}
 \usage{
 agrupaciones
 }

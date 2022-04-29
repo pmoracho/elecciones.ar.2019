@@ -4,7 +4,8 @@
 \name{descripcion_postulaciones}
 \alias{descripcion_postulaciones}
 \title{Postulaciones (categorías y agrupaciones)}
-\format{Un data frame con 793 filas y 6 variables
+\format{
+Un data frame con 793 filas y 6 variables
 \describe{
   \item{CODIGO_CATEGORIA}{Código de categoría del voto, ej "Diputados Ciudad Autónoma de Buenos Aires"}
   \item{NOMBRE_CATEGORIA}{Nombre de la categoría}
@@ -12,7 +13,8 @@
   \item{NOMBRE_AGRUPACION}{Nombre de la agrupación política}
   \item{CODIGO_LISTA}{Código de la lista}
   \item{NOMBRE_LISTA}{Nombre de la lista}
-}}
+}
+}
 \source{
 \url{https://resultados2019.gob.ar/resultados_detalle.zip}
 }

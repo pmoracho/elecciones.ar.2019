@@ -4,7 +4,8 @@
 \name{mesas_totales}
 \alias{mesas_totales}
 \title{Mesas}
-\format{Un data frame con 2,532,824 filas y 7 variables:
+\format{
+Un data frame con 2,532,824 filas y 7 variables:
 \describe{
   \item{CODIGO_DISTRITO}{Código de distrito}
   \item{CODIGO_SECCION}{Código de sección electoral}
@@ -13,7 +14,8 @@
   \item{CODIGO_CATEGORIA}{Código de categoría de la elección}
   \item{CONTADOR}{Desconocido}
   \item{VALOR}{Desconocido}
-}}
+}
+}
 \source{
 \url{https://resultados2019.gob.ar/resultados_detalle.zip}
 }

@@ -4,7 +4,8 @@
 \name{medios_sim_leg_nac}
 \alias{medios_sim_leg_nac}
 \title{Bancas por agrupación}
-\format{Un data frame con 3,665,201 filas y 7 variables:
+\format{
+Un data frame con 3,665,201 filas y 7 variables:
 \describe{
   \item{CODIGO_PROVINCIA}{Código de provincia}
   \item{PORCENTAJE_CARGA}{porcentaje de carga}
@@ -12,7 +13,8 @@
   \item{CODIGO_AGRUPACION}{Código de agrupación}
   \item{BANCAS_AGRUPACION}{Bancas obtenidas}
   \item{OBSERVACIONES}{Observaciones}
-}}
+}
+}
 \source{
 \url{https://resultados2019.gob.ar/resultados_detalle.zip}
 }

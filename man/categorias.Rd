@@ -4,13 +4,15 @@
 \name{categorias}
 \alias{categorias}
 \title{Categorias a las que se votó}
-\format{Un data frame con 204 filas y 4 variables:
+\format{
+Un data frame con 204 filas y 4 variables:
 \describe{
   \item{id_categoria}{id numérico generado}
   \item{codigo_categoria}{Código del categoría del voto}
   \item{nombre_categoria}{Nombre de la categoría}
   \item{votos_totales}{Sumatoria de todos los votos en esta categoría}
-}}
+}
+}
 \usage{
 categorias
 }
